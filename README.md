@@ -6,6 +6,48 @@ The platform allows two captains to bid on players using a virtual currency ("Ri
 
 ## Architectural Decisions
 
+```mermaid
+sequenceDiagram
+    participant Host as Host (Web)
+    participant Cap as Captains (Web)
+    participant Spec as Spectators (Web)
+    participant Server as Bun WebSocket Server (In-Memory State)
+    participant DB as Prisma (Database)
+
+    Host->>Server: HTTP POST /api/create (Start Room)
+    Server-->>Host: roomCode
+
+    Cap->>Server: HTTP POST /api/join (Join as Captain)
+    Server-->>Cap: sessionToken
+
+    Cap->>Server: WS Upgrade (Role: Captain)
+    Spec->>Server: WS Upgrade (Role: Spectator)
+    Host->>Server: WS Upgrade (Role: Host)
+
+    Server-->>Cap: Sync Initial State
+    Server-->>Spec: Sync Initial State
+
+    Host->>Server: WS "auction:start" / "auction:next"
+    Server-->>Cap: Broadcast "auction:player-on-block"
+    Server-->>Spec: Broadcast "auction:player-on-block"
+
+    Cap->>Server: WS "bid:place" (amount)
+    Note over Server: Synchronous Validation:<br/>bid > highestBid &&<br/>bid <= balance
+    alt Invalid Bid
+        Server-->>Cap: Private "bid:rejected"
+    else Valid Bid
+        Server-->>Cap: Private "bid:accepted"
+        Server-->>Cap: Broadcast "bid:update"
+        Server-->>Spec: Broadcast "bid:update"
+        Note over Server: Reset 10s Timer
+    end
+
+    Note over Server: 10s Timer Expires
+    Server->>DB: Checkpoint Sale / Balance Update
+    Server-->>Cap: Broadcast "player:sold"
+    Server-->>Spec: Broadcast "player:sold"
+```
+
 This project tackles a real-time concurrency problem (multiple bids coming in milliseconds apart) using a **Server-Authoritative State** model.
 
 ### Tech Stack

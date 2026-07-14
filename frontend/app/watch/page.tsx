@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { AuctionState, PlayerData, CaptainData, ServerMessage } from "../types";
 import { API_URL, WS_URL } from "../config";
@@ -16,7 +16,7 @@ interface DBPlayer {
   soldToCaptainId: string | null;
 }
 
-export default function SpectatorWatch() {
+function SpectatorWatch() {
   const searchParams = useSearchParams();
   const roomCode = searchParams.get("roomCode")?.toUpperCase() || "";
 
@@ -283,6 +283,14 @@ export default function SpectatorWatch() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function SpectatorWatchPage() {
+  return (
+    <Suspense fallback={<div style={{ display: "flex", alignItems: "center", justifyContent: "center", minHeight: "100vh", color: "#fff" }}>Loading...</div>}>
+      <SpectatorWatch />
+    </Suspense>
   );
 }
 

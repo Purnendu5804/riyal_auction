@@ -1,11 +1,11 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { AuctionState, PlayerData, CaptainData, ServerMessage } from "../types";
 import { WS_URL } from "../config";
 
-export default function CaptainDashboard() {
+function CaptainDashboard() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const roomCode = searchParams.get("roomCode")?.toUpperCase() || "";
@@ -314,6 +314,14 @@ export default function CaptainDashboard() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function CaptainDashboardPage() {
+  return (
+    <Suspense fallback={<div style={{ display: "flex", alignItems: "center", justifyContent: "center", minHeight: "100vh", color: "#fff" }}>Loading...</div>}>
+      <CaptainDashboard />
+    </Suspense>
   );
 }
 

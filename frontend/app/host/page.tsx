@@ -1,11 +1,11 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { AuctionState, PlayerData, CaptainData, ServerMessage } from "../types";
 import { WS_URL } from "../config";
 
-export default function HostConsole() {
+function HostConsole() {
   const searchParams = useSearchParams();
   const roomCode = searchParams.get("roomCode")?.toUpperCase() || "";
 
@@ -251,6 +251,14 @@ export default function HostConsole() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function HostConsolePage() {
+  return (
+    <Suspense fallback={<div style={{ display: "flex", alignItems: "center", justifyContent: "center", minHeight: "100vh", color: "#fff" }}>Loading...</div>}>
+      <HostConsole />
+    </Suspense>
   );
 }
 

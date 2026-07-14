@@ -1,0 +1,48 @@
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Player {
+  id              String   @id @default(uuid())
+  name            String
+  position        String
+  basePrice       Int
+  status          String   // "available" | "sold" | "skipped"
+  passCount       Int      @default(0) // number of times gone unsold
+  soldPrice       Int?
+  soldToCaptainId String?
+  soldToCaptain   Captain? @relation(fields: [soldToCaptainId], references: [id])
+}
+
+model Captain {
+  id           String   @id @default(uuid())
+  name         String
+  balance      Int      // Riyal Coins
+  sessionToken String   @unique // for reconnect mapping
+  players      Player[]
+}
+
+model Auction {
+  id                     String  @id @default(uuid())
+  roomCode               String  @unique // short random slug
+  status                 String  // "upcoming" | "live" | "paused" | "done"
+  currentPlayerId        String?
+  currentHighestBid      Int     @default(0)
+  currentHighestBidderId String?
+  playerQueue            String  @default("[]") // JSON serialized array of Player IDs remaining in queue
+}
+
+model BidLog {
+  id        String   @id @default(uuid())
+  auctionId String
+  captainId String
+  playerId  String
+  amount    Int
+  timestamp DateTime @default(now())
+}

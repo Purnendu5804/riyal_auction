@@ -372,7 +372,7 @@ async function putNextPlayerOnBlock(room: RoomState) {
 
 // Start Bun Serve
 const server = Bun.serve<SocketData>({
-  port: 8080,
+  port: process.env.PORT || 8080,
   async fetch(req) {
     const url = new URL(req.url);
 

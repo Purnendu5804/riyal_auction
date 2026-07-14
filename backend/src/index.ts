@@ -496,8 +496,8 @@ const server = Bun.serve<SocketData>({
         }
 
         let startingBalance = 500;
-        if (name === "Lionel Yadav") startingBalance = 355;
-        if (name === "Cristiano Gupta") startingBalance = 110;
+        if (name === "Lionel Yadav") startingBalance = 500;
+        if (name === "Cristiano Gupta") startingBalance = 500;
 
         const sessionToken = crypto.randomUUID();
         const dbCaptain = await prisma.captain.create({

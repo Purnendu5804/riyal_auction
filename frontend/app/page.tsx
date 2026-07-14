@@ -143,7 +143,7 @@ export default function Home() {
                 style={{ ...inputStyle, background: "rgba(15, 23, 42, 0.8)", cursor: "pointer", color: captainName ? "var(--text-main)" : "var(--text-muted)" }}
               >
                 <option value="" disabled>-- Select Your Name --</option>
-                <option value="Lionel Yadav">Lionel Yadav</option>
+                <option value="Lionel Messi">Lionel Messi</option>
                 <option value="Cristiano Gupta">Cristiano Gupta</option>
               </select>
             </div>

@@ -2,8 +2,8 @@
 
 import { useEffect, useState, useRef } from "react";
 import { useSearchParams } from "next/navigation";
-import { AuctionState, PlayerData, CaptainData, ServerMessage } from "./types.ts";
-import { API_URL, WS_URL } from "../config.ts";
+import { AuctionState, PlayerData, CaptainData, ServerMessage } from "../types";
+import { API_URL, WS_URL } from "../config";
 
 interface DBPlayer {
   id: string;

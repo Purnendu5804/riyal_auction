@@ -2,8 +2,8 @@
 
 import { useEffect, useState, useRef } from "react";
 import { useSearchParams } from "next/navigation";
-import { AuctionState, PlayerData, CaptainData, ServerMessage } from "./types.ts";
-import { WS_URL } from "../config.ts";
+import { AuctionState, PlayerData, CaptainData, ServerMessage } from "../types";
+import { WS_URL } from "../config";
 
 export default function HostConsole() {
   const searchParams = useSearchParams();

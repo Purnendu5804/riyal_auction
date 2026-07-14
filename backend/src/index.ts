@@ -431,11 +431,11 @@ const server = Bun.serve<SocketData>({
           });
         }
 
-        const allowedCaptains = ["Lionel Messi", "Cristiano Gupta"];
+        const allowedCaptains = ["Lionel Messi", "Cristiano Gupta", "Lionel Gupta"];
         const name = allowedCaptains.find(c => c.toLowerCase() === inputName.trim().toLowerCase());
 
         if (!name) {
-          return new Response(JSON.stringify({ success: false, error: "Invalid captain name. Only 'Lionel Messi' or 'Cristiano Gupta' can join." }), {
+          return new Response(JSON.stringify({ success: false, error: "Invalid captain name. Only 'Lionel Messi', 'Cristiano Gupta', or 'Lionel Gupta' can join." }), {
             headers: { ...CORS_HEADERS, "Content-Type": "application/json" },
             status: 400,
           });
@@ -496,7 +496,7 @@ const server = Bun.serve<SocketData>({
         }
 
         let startingBalance = 500;
-        if (name === "Lionel Messi") startingBalance = 355;
+        if (name === "Lionel Yadav") startingBalance = 355;
         if (name === "Cristiano Gupta") startingBalance = 110;
 
         const sessionToken = crypto.randomUUID();

@@ -145,6 +145,7 @@ export default function Home() {
                 <option value="" disabled>-- Select Your Name --</option>
                 <option value="Lionel Messi">Lionel Messi</option>
                 <option value="Cristiano Gupta">Cristiano Gupta</option>
+                <option value="Lionel Gupta">Lionel Gupta</option>
               </select>
             </div>
             <button 

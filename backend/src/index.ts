@@ -435,7 +435,7 @@ const server = Bun.serve<SocketData>({
         const name = allowedCaptains.find(c => c.toLowerCase() === inputName.trim().toLowerCase());
 
         if (!name) {
-          return new Response(JSON.stringify({ success: false, error: "Invalid captain name. Only 'Lionel Messi', 'Cristiano Gupta', or 'Lionel Gupta' can join." }), {
+          return new Response(JSON.stringify({ success: false, error: "Invalid captain name. Only 'Lionel Yadav', 'Cristiano Gupta'can join." }), {
             headers: { ...CORS_HEADERS, "Content-Type": "application/json" },
             status: 400,
           });

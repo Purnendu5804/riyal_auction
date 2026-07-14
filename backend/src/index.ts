@@ -431,11 +431,11 @@ const server = Bun.serve<SocketData>({
           });
         }
 
-        const allowedCaptains = ["Lionel Yadav", "Cristiano Gupta"];
+        const allowedCaptains = ["Lionel Messi", "Cristiano Gupta"];
         const name = allowedCaptains.find(c => c.toLowerCase() === inputName.trim().toLowerCase());
 
         if (!name) {
-          return new Response(JSON.stringify({ success: false, error: "Invalid captain name. Only 'Lionel Yadav' or 'Cristiano Gupta' can join." }), {
+          return new Response(JSON.stringify({ success: false, error: "Invalid captain name. Only 'Lionel Messi' or 'Cristiano Gupta' can join." }), {
             headers: { ...CORS_HEADERS, "Content-Type": "application/json" },
             status: 400,
           });
@@ -495,12 +495,15 @@ const server = Bun.serve<SocketData>({
           });
         }
 
-        // Create new Captain
+        let startingBalance = 500;
+        if (name === "Lionel Messi") startingBalance = 355;
+        if (name === "Cristiano Gupta") startingBalance = 110;
+
         const sessionToken = crypto.randomUUID();
         const dbCaptain = await prisma.captain.create({
           data: {
             name,
-            balance: 500, // starting Riyal Coins
+            balance: startingBalance,
             sessionToken,
           },
         });

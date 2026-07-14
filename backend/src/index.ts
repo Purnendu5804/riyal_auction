@@ -431,7 +431,7 @@ const server = Bun.serve<SocketData>({
           });
         }
 
-        const allowedCaptains = ["Lionel Messi", "Cristiano Gupta", "Lionel Gupta"];
+        const allowedCaptains = ["Lionel Yadav", "Cristiano Gupta"];
         const name = allowedCaptains.find(c => c.toLowerCase() === inputName.trim().toLowerCase());
 
         if (!name) {

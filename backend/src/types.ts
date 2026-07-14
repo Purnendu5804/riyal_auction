@@ -18,7 +18,7 @@ export interface CaptainData {
 
 export interface AuctionState {
   roomCode: string;
-  status: "upcoming" | "live" | "paused" | "done";
+  status: "upcoming" | "live" | "paused" | "done" | "bidding";
   currentPlayer: PlayerData | null;
   currentHighestBid: number;
   currentHighestBidderId: string | null;

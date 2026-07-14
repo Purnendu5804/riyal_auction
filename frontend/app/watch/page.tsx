@@ -28,23 +28,23 @@ function SpectatorWatch() {
   
   const wsRef = useRef<WebSocket | null>(null);
 
-  // Fetch initial allPlayers data from API and sync updates
-  const fetchRoomData = async () => {
-    try {
-      const res = await fetch(`${API_URL}/api/room/${roomCode}`);
-      const data = await res.json();
-      if (data.success) {
-        setState(data.state);
-        setAllPlayers(data.allPlayers || []);
-      }
-    } catch (err) {
-      console.error("Error fetching room details:", err);
-    }
-  };
 
   useEffect(() => {
     if (!roomCode) return;
 
+    // Fetch initial allPlayers data from API and sync updates
+    const fetchRoomData = async () => {
+      try {
+        const res = await fetch(`${API_URL}/api/room/${roomCode}`);
+        const data = await res.json();
+        if (data.success) {
+          setState(data.state);
+          setAllPlayers(data.allPlayers || []);
+        }
+      } catch (err) {
+        console.error("Error fetching room details:", err);
+      }
+    };
     fetchRoomData();
 
     const ws = new WebSocket(`${WS_URL}/ws?roomCode=${roomCode}&role=spectator`);

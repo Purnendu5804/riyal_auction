@@ -14,6 +14,11 @@ function HostConsole() {
   const [wsConnected, setWsConnected] = useState(false);
   const wsRef = useRef<WebSocket | null>(null);
 
+  const addLog = (message: string) => {
+    setLogs((prev) => [message, ...prev.slice(0, 19)]);
+  };
+
+
   useEffect(() => {
     if (!roomCode) return;
 
@@ -57,11 +62,6 @@ function HostConsole() {
       ws.close();
     };
   }, [roomCode]);
-
-  const addLog = (message: string) => {
-    setLogs((prev) => [message, ...prev.slice(0, 19)]);
-  };
-
   const sendAction = (type: string) => {
     if (wsRef.current && wsRef.current.readyState === WebSocket.OPEN) {
       wsRef.current.send(JSON.stringify({ type }));

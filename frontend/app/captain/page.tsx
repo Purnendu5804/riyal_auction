@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useRef, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
+import Link from "next/link";
 import { AuctionState, PlayerData, CaptainData, ServerMessage } from "../types";
 import { WS_URL } from "../config";
 
@@ -39,6 +40,7 @@ function CaptainDashboard() {
       return;
     }
 
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setToken(storedToken);
     setCaptainId(storedId);
     setCaptainName(storedName);
@@ -124,7 +126,7 @@ function CaptainDashboard() {
     return (
       <div style={errorPageStyle}>
         <h2>Error: Room Code is missing.</h2>
-        <a href="/" className="btn-primary" style={{ marginTop: "20px" }}>Go back home</a>
+        <Link href="/" className="btn-primary" style={{ marginTop: "20px" }}>Go back home</Link>
       </div>
     );
   }

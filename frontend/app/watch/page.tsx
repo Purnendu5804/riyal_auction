@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useRef, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
+import Link from "next/link";
 import { AuctionState, PlayerData, CaptainData, ServerMessage } from "../types";
 import { API_URL, WS_URL } from "../config";
 
@@ -98,7 +99,7 @@ function SpectatorWatch() {
     return (
       <div style={errorPageStyle}>
         <h2>Error: Room Code is missing.</h2>
-        <a href="/" className="btn-primary" style={{ marginTop: "20px" }}>Go back home</a>
+        <Link href="/" className="btn-primary" style={{ marginTop: "20px" }}>Go back home</Link>
       </div>
     );
   }
